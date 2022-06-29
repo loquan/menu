@@ -1,0 +1,17 @@
+
+<div class="container"  >
+  <span style="text-align: center;"><h3>{{myImage[current].title}}</h3></span>
+  <img class="imageButton" src="{{imagePath}}/{{myImage[current].image}}" style="position:absolute;top:400px;width:400px;">
+</div>
+
+<div class="flex-container"  style="position:absolute;top:600px">
+  <button class="col"  (click)="left()"><mat-icon style="height:280px;z-index:500;">arrow_left</mat-icon></button>
+  <div  class="card" *ngFor="let number of group "  >
+    <img class="imageButton" src="{{imagePath}}/{{myImage[number].image}}" style="width:180px;z-index: 10;" (click)='selectImage(number)'>
+  </div>
+  <div  id="cardTemp"   >
+    <img class="imageButton"  src="{{imagePath}}/{{myImage[endIndex].image}}" style="width:180px;z-index: 10" >
+  </div>
+ <button class="col" (click)="right()"><mat-icon style="height:280px;z-index:500;">arrow_right</mat-icon></button>
+</div>
+<br>
