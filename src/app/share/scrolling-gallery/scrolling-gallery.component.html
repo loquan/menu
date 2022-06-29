@@ -5,13 +5,13 @@
 </div>
 
 <div class="flex-container"  style="position:absolute;top:600px">
-  <button class="col"  (click)="left()"><mat-icon style="height:280px;z-index:500;">arrow_left</mat-icon></button>
+  <button class="col"  style="height:290px;z-index:500;visibility:{{leftButtonVisible}}" (click)="left()"><mat-icon >arrow_left</mat-icon></button>
   <div  class="card" *ngFor="let number of group "  >
-    <img class="imageButton" src="{{imagePath}}/{{myImage[number].image}}" style="width:180px;z-index: 10;" (click)='selectImage(number)'>
+    <img class="imageButton" src="{{imagePath}}/{{myImage[number].image}}" style="width:180px;z-index: 10" (click)='selectImage(number)'>
   </div>
   <div  id="cardTemp"   >
-    <img class="imageButton"  src="{{imagePath}}/{{myImage[endIndex].image}}" style="width:180px;z-index: 10" >
+    <img class="imageButton"  src="{{imagePath}}/{{myImage[endIndex].image}}" style="width:180px;z-index: 10;" >
   </div>
- <button class="col" (click)="right()"><mat-icon style="height:280px;z-index:500;">arrow_right</mat-icon></button>
+ <button class="col" style="height:290px;z-index:500;visibility:{{rightButtonVisible}}" (click)="right()"><mat-icon >arrow_right</mat-icon></button>
 </div>
 <br>

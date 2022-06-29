@@ -13,14 +13,24 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
   current:number=0;
   imagePath:string = "https://michaelseh.com/"
   @Input() myImage:Images[]=[];
-  group:number[]=[0,1,2,3,4,5];
-  endIndex:number=6;
 
+  group:number[]=[];
+  groupSize=6;
+  endIndex:number=6;
+  maxLength:number=0;
   isOpen:boolean=true;
   xSpacing:number=189;
+  leftButtonVisible="visible";
+  rightButtonVisible="hidden";
   constructor() { }
 
   ngOnInit(): void {
+    for(let x=0;x<this.groupSize;x++)
+    {
+       this.group[x]=x;
+    }
+    this.endIndex=this.groupSize;
+    this.maxLength=this.myImage.length;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -60,7 +70,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       let  temp = document.getElementById('cardTemp') as HTMLElement;
       temp.style.visibility="visible";
       temp.style.position='absolute';
-
+      temp.style.display='block';
 
       temp.style.left=(xLast+this.xSpacing)+'px';
       temp.style.height=heightLast+"px";
@@ -84,6 +94,15 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
         position.style.left='0px';
         console.log("${q}:",position.style.left);
       }
+      if(this.count>=0)
+        this.rightButtonVisible="visible";
+      else
+        this.rightButtonVisible="hidden";
+
+      if(this.count<(this.maxLength-this.group.length))
+        this.leftButtonVisible="visible";
+      else
+        this.leftButtonVisible="hidden";
 
       clearTimeout(timeAnimation);
     }, 500);
@@ -155,6 +174,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
 
       }
       let  temp = document.getElementById('cardTemp') as HTMLElement;
+      temp.style.display='block';
       temp.style.visibility="visible";
       temp.style.position='absolute';
       temp.style.left=(xLast-(this.xSpacing+21))+'px';
@@ -177,6 +197,17 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
         position.style.left='0px';
 
       }
+
+      if(this.count>=0)
+        this.rightButtonVisible="visible";
+      else
+        this.rightButtonVisible="hidden";
+
+      if(this.count<(this.maxLength-this.group.length))
+        this.leftButtonVisible="visible";
+      else
+        this.leftButtonVisible="hidden";
+
       clearTimeout(timeAnimation);
     }, 500);
 
