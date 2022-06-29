@@ -2,10 +2,11 @@
 #cardTemp {
 
   display: none;
+  opacity: 0.7;
   /* background-color: green; */
 }
 .card{
-
+  opacity: 0.7;
   animation-fill-mode: forwards;
 
 }
@@ -27,7 +28,7 @@
   background-color: DodgerBlue;
   position: absolute;
   z-index:100;
-  clip: rect(0px,1296px,400px,0px);
+  /* clip: rect(0px,1296px,400px,0px); */
 }
 
 .flex-container > div {

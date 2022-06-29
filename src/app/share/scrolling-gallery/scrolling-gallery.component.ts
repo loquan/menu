@@ -16,7 +16,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
 
   group:number[]=[];
   groupSize=6;
-  endIndex:number=6;
+  endIndex:number=7;
   maxLength:number=0;
   isOpen:boolean=true;
   xSpacing:number=189;
@@ -29,12 +29,27 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
     {
        this.group[x]=x;
     }
+
+
     this.endIndex=this.groupSize;
     this.maxLength=this.myImage.length;
+
+    setTimeout(()=>{
+      let  first = document.getElementsByClassName('card')[0] as HTMLElement;
+      let  clipping = document.getElementsByClassName('flex-container')[0] as HTMLElement;
+
+
+      first.style.opacity="1";
+      let clippingWidth=this.groupSize*216;
+
+      clipping.style.clip= 'rect(0px,'+clippingWidth+'px,400px,0px)';
+
+    },100);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
       console.log("change");
+
   }
   left(){
     this.isOpen=false;
@@ -85,6 +100,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       let  app = document.getElementsByClassName('card');
       let  temp = document.getElementById('cardTemp') as HTMLElement;
       temp.style.visibility="hidden";
+      let firstIndex:number=0;
       //this.group=[1,2,3,4,5];
       for(let q=0;q<app.length;q++)
       {
@@ -94,6 +110,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
         position.style.left='0px';
         console.log("${q}:",position.style.left);
       }
+      firstIndex=this.group[0];
       if(this.count>=0)
         this.rightButtonVisible="visible";
       else
@@ -104,6 +121,13 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       else
         this.leftButtonVisible="hidden";
 
+      if(this.current<firstIndex)
+      {
+         this.current=firstIndex;
+         this.selectImage(firstIndex) ;
+         this.focusImage(firstIndex+1);
+
+      }
       clearTimeout(timeAnimation);
     }, 500);
 
@@ -164,6 +188,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       {
         let position = app[i] as HTMLElement;
         let first = app[0] as HTMLElement;
+
         position.style.position='relative';
         position.style.left=xPos+'px';
 
@@ -189,25 +214,34 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       //this.group=[1,2,3,4,5];
       let  temp = document.getElementById('cardTemp') as HTMLElement;
       temp.style.visibility="hidden";
+      let lastIndex:number=0;
       for(let q=0;q<app.length;q++)
       {
         let position = app[q] as HTMLElement;
-        this.group[q]=this.count+q;
+        this.group[q]=this.group[q]-1;
+        lastIndex=this.group[app.length-1];
         position.style.position='relative';
         position.style.left='0px';
 
       }
 
-      if(this.count>=0)
-        this.rightButtonVisible="visible";
-      else
+      if(this.count<=0)
         this.rightButtonVisible="hidden";
+      else
+        this.rightButtonVisible="visible";
 
       if(this.count<(this.maxLength-this.group.length))
         this.leftButtonVisible="visible";
       else
         this.leftButtonVisible="hidden";
 
+      if(this.current>lastIndex)
+      {
+        this.current=lastIndex;
+         this.selectImage(lastIndex) ;
+         this.focusImage(lastIndex-1);
+
+      }
       clearTimeout(timeAnimation);
     }, 500);
 
@@ -215,10 +249,49 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
 
 
 
+  }
+
+  focusImage(index:number){
+
+    let  app = document.getElementsByClassName('card');
+    for(let i=0;i<app.length;i++)
+    {
+      let position = app[i] as HTMLElement;
+
+      if(this.group[i]==index)
+      {
+        position.style.opacity="1";
+        position.style.backgroundColor="green";
+      }
+      else
+      {
+        position.style.opacity="0.7";
+        position.style.backgroundColor="white";
+      }
+    }
+
 
   }
+
   selectImage(index:number){
     this.current=index;
+    let  app = document.getElementsByClassName('card');
+    for(let i=0;i<app.length;i++)
+    {
+      let position = app[i] as HTMLElement;
+
+      if(this.group[i]==index)
+      {
+        position.style.opacity="1";
+        position.style.backgroundColor="green";
+      }
+      else
+      {
+        position.style.opacity="0.7";
+        position.style.backgroundColor="white";
+      }
+    }
+
 
   }
   currentSlide(index:number){
