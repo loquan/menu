@@ -15,6 +15,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
   @Input() myImage:Images[]=[];
   group:number[]=[0,1,2,3,4,5];
   endIndex:number=6;
+
   isOpen:boolean=true;
   xSpacing:number=189;
   constructor() { }
@@ -37,7 +38,6 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       let  app = document.getElementsByClassName('card');
       xPos-=4;
       let xLast=0;
-      let yLast=0;
       let heightLast=0;
       let widthLast=0;
       //let position = app as HTMLElement;
@@ -49,7 +49,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
         position.style.position='relative';
         position.style.left=xPos+'px';
         xLast=position.offsetLeft;
-        yLast=0;
+
         heightLast=position.getBoundingClientRect().height;
         widthLast=parseInt(position.getBoundingClientRect().width.toString())+2;
 
@@ -58,11 +58,10 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
 
 
       let  temp = document.getElementById('cardTemp') as HTMLElement;
-
       temp.style.visibility="visible";
       temp.style.position='absolute';
-      //temp.style.left='0px';
-      temp.style.top=yLast+'px';
+
+
       temp.style.left=(xLast+this.xSpacing)+'px';
       temp.style.height=heightLast+"px";
       temp.style.width=widthLast+"px";
@@ -130,6 +129,10 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
   right(){
     this.isOpen=false;
     let xPos:number=0;
+    let xLast=0;
+    let heightLast=0;
+    let widthLast=0;
+    this.endIndex=this.group[0]-1;
     console.log('xPos:'+xPos);
     let  app = document.getElementsByClassName('card');
     var timeAnimation=setInterval(() =>{
@@ -141,15 +144,31 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       for(let i=0;i<app.length;i++)
       {
         let position = app[i] as HTMLElement;
+        let first = app[0] as HTMLElement;
         position.style.position='relative';
         position.style.left=xPos+'px';
+
+        xLast=first.offsetLeft;
+
+        heightLast=first.getBoundingClientRect().height;
+        widthLast=parseInt(first.getBoundingClientRect().width.toString())+2;
+
       }
+      let  temp = document.getElementById('cardTemp') as HTMLElement;
+      temp.style.visibility="visible";
+      temp.style.position='absolute';
+      temp.style.left=(xLast-(this.xSpacing+21))+'px';
+      temp.style.height=heightLast+"px";
+      temp.style.width=widthLast+"px";
+
     }, 10)
 
     setTimeout(() =>{
       console.log("done");
       this.count--;
       //this.group=[1,2,3,4,5];
+      let  temp = document.getElementById('cardTemp') as HTMLElement;
+      temp.style.visibility="hidden";
       for(let q=0;q<app.length;q++)
       {
         let position = app[q] as HTMLElement;
