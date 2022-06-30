@@ -10,6 +10,7 @@ import { ResumeComponent } from './resume/resume.component';
 import { ImageComponent } from './image/image.component';
 import { Image2Component } from './image2/image2.component';
 import { ScrollingGalleryComponent } from './share/scrolling-gallery/scrolling-gallery.component';
+import { ScrollingAngularComponent } from './share/scrolling-angular/scrolling-angular.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ScrollingGalleryComponent } from './share/scrolling-gallery/scrolling-g
     ResumeComponent,
     ImageComponent,
     Image2Component,
-    ScrollingGalleryComponent
+    ScrollingGalleryComponent,
+    ScrollingAngularComponent
   ],
   imports: [
     BrowserModule,

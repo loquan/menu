@@ -5,13 +5,26 @@ import { Images } from '../../models/image';
 @Component({
   selector: 'app-scrolling-gallery',
   templateUrl: './scrolling-gallery.component.html',
-  styleUrls: ['../../../../node_modules/bootstrap/dist/css/bootstrap.min.css','./scrolling-gallery.component.css']
+  styleUrls: ['../../../../node_modules/bootstrap/dist/css/bootstrap.min.css','./scrolling-gallery.component.css'],
+  animations:[
+    trigger('move',[
+      state('start',style({position:'relative',left:'0px'})),
+      state('left',style({position:'relative',left:'-200px'})),
+      state('right',style({position:'relative',left:'200px'})),
+      transition('start => left',[animate(500)]),
+      transition('start => right',[animate(500)]),
+      transition('left => start',[animate(0)]),
+      transition('right => start',[animate(0)]),
+
+
+    ])
+  ]
 })
 export class ScrollingGalleryComponent implements OnInit,OnChanges {
 
   count:number=0;
   current:number=0;
-  imagePath:string = "https://michaelseh.com/"
+  @Input() imagePath:string = "https://michaelseh.com/";
   @Input() myImage:Images[]=[];
 
   group:number[]=[];
@@ -19,12 +32,13 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
   endIndex:number=0;
   maxLength:number=0;
   isOpen:boolean=true;
+  animateLeft:boolean=true;
   xSpacing:number=189;
   leftButtonVisible="visible";
   rightButtonVisible="hidden";
   screenWidth = window.innerWidth;
   screenHeight = window.innerHeight;
-
+  animateState:number=0;
 
   @HostListener('window:resize')
   onResize() {
@@ -37,7 +51,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
        this.group[x]=x;
     }
     this.endIndex=this.groupSize;
-    this.maxLength=this.myImage.length;
+
 
   }
 
@@ -57,7 +71,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
 
   }
   ngOnInit(): void {
-
+    this.maxLength=this.myImage.length;
     this.onResize();
 
 
@@ -73,8 +87,11 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
       console.log("change");
 
   }
+
+
+
   left(){
-    this.isOpen=false;
+
     let xPos:number=0;
     console.log('xPos:'+xPos);
 

@@ -1,0 +1,25 @@
+<p>scrolling-angular works!</p>
+<div class="container"  >
+  <span style="text-align: center;z-index:1000;"><h3 >{{myImage[current].title | uppercase}}</h3></span>
+  <img class="displayButton" src="{{imagePath}}/{{myImage[current].image}}" style="width:400px;z-index:-1">
+</div>
+
+
+
+    <div class="flex-container"  style="position:absolute;top:600px">
+      <button class="col"  style="height:290px;z-index:10;visibility:{{leftButtonVisible}}" (click)="leftAnimation()"><mat-icon >arrow_left</mat-icon></button>
+      <div  class="card"
+            [@move]=" animateState==0 ? 'start' : animateState==1 ? 'left' : 'right' "
+            (@move.start)="startAnimationEvent($event)"
+            (@move.done)="endAnimationEvent($event)"
+            *ngFor="let number of group "  >
+        <img class="imageButton" src="{{imagePath}}/{{myImage[number].image}}" style="width:180px;z-index:10;" (click)='selectImage(number)'>
+      </div>
+      <div  id="cardTemp" style="z-index:100;"
+      [@move]="animateLeft ? 'start' : 'left'"
+      (@move.start)="startAnimationEvent($event)"
+      (@move.done)="endAnimationEvent($event)" >
+        <img class="imageButton"  src="{{imagePath}}/{{myImage[endIndex].image}}" style="width:180px;z-index:100;" >
+      </div>
+     <button class="col" style="height:290px;z-index:1500;visibility:{{rightButtonVisible}}" (click)="rightAnimation()"><mat-icon >arrow_right</mat-icon></button>
+    </div>

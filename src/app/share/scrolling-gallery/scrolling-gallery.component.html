@@ -1,8 +1,13 @@
 
 <div class="container"  >
-  <span style="text-align: center;z-index:1000"><h3>{{myImage[current].title}}</h3></span>
+  <span style="text-align: center;z-index:1000;"><h3 >{{myImage[current].title | uppercase}}</h3></span>
   <img class="displayButton" src="{{imagePath}}/{{myImage[current].image}}" style="width:400px;z-index:-1">
 </div>
+
+
+
+
+
 
 <div class="flex-container"  style="position:absolute;top:600px">
   <button class="col"  style="height:290px;z-index:500;visibility:{{leftButtonVisible}}" (click)="left()"><mat-icon >arrow_left</mat-icon></button>
@@ -14,4 +19,4 @@
   </div>
  <button class="col" style="height:290px;z-index:500;visibility:{{rightButtonVisible}}" (click)="right()"><mat-icon >arrow_right</mat-icon></button>
 </div>
-<br>
+
