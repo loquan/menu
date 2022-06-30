@@ -44,7 +44,7 @@ export class ScrollingAngularComponent implements OnInit {
   onResize() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-    //this.groupSize=Math.round(this.screenWidth/300);
+    this.groupSize=Math.round(this.screenWidth/300);
     this.group=[];
     for(let x=0;x<this.groupSize;x++)
     {
@@ -110,7 +110,9 @@ export class ScrollingAngularComponent implements OnInit {
       {
         this.group[q]=this.group[q]+1;
       }
-
+      // let  temp = document.getElementById('cardTempEnd') as HTMLElement;
+      // temp.style.visibility="hidden";
+      // temp.style.display="none";
     }else if( this.animateState==2 ){//right left called multiple times
 
       let  app = document.getElementsByClassName('card');
@@ -119,9 +121,20 @@ export class ScrollingAngularComponent implements OnInit {
         {
           this.group[q]=this.group[q]-1;
         }
+        // let  temp = document.getElementById('cardTempStart') as HTMLElement;
+        // temp.style.visibility="hidden";
+        // temp.style.display="none";
+
+
 
     }
     this.animateState=0;
+
+    //hidde at the end
+    // let  temp = document.getElementById('cardTemp') as HTMLElement;
+    // temp.style.visibility="hidden";
+    // temp.style.display="none";
+
     this.startAnimation=false;
   }
   leftAnimation(){
@@ -152,20 +165,22 @@ export class ScrollingAngularComponent implements OnInit {
 
       }
 
-      // let  app = document.getElementsByClassName('card');
-      // let  position = app[app.length-1] as HTMLElement;
-      // let xLast=position.offsetLeft;
+      let  app = document.getElementsByClassName('card');
+      let  position = app[app.length-1] as HTMLElement;
+      let xLast=position.offsetLeft;
 
 
       // let heightLast=position.getBoundingClientRect().height;
       // let widthLast=parseInt(position.getBoundingClientRect().width.toString())+2;
-      // let  temp = document.getElementById('cardTemp') as HTMLElement;
+      // this.endIndex=this.group[this.group.length-1]+1;
+      // let  temp = document.getElementById('cardTempEnd') as HTMLElement;
       // temp.style.visibility="visible";
+      // temp.style.display="block";
       // temp.style.position='absolute';
-      // temp.style.display='block';
-      // temp.style.left=(xLast+this.xSpacing)+'px';
-      // temp.style.height=heightLast+"px";
-      // temp.style.width=widthLast+"px";
+      // temp.style.backgroundColor='yellow';
+
+      //temp.style.left=(xLast+this.xSpacing)+'px';
+
 
 
         // let maxValue=this.group[this.group.length-1];
@@ -200,6 +215,13 @@ export class ScrollingAngularComponent implements OnInit {
       }
 
 
+      // this.endIndex=this.group[0]-1;
+      // let  temp = document.getElementById('cardTempStart') as HTMLElement;
+      // temp.style.visibility="visible";
+      // temp.style.display="block";
+      // temp.style.position='absolute';
+      // temp.style.backgroundColor='orange';
+      // temp.style.left='100px';
       // let firstValue=this.group[0]-1;
       // if(firstValue>=0)
       // {
@@ -207,8 +229,10 @@ export class ScrollingAngularComponent implements OnInit {
       // }
 
 
-
-      this.animateState=2;
+      setTimeout(()=>{
+        this.animateState=2
+      },122);
+      //this.animateState=2;
 
 
   }

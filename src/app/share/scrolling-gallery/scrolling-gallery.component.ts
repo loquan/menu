@@ -44,7 +44,7 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
   onResize() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-    //this.groupSize=Math.round(this.screenWidth/300);
+    this.groupSize=Math.round(this.screenWidth/300);
     this.group=[];
     for(let x=0;x<this.groupSize;x++)
     {

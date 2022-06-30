@@ -8,6 +8,12 @@
 
     <div class="flex-container"  style="position:absolute;top:600px">
       <button class="col"  style="height:290px;z-index:10;visibility:{{leftButtonVisible}}" (click)="leftAnimation()"><mat-icon >arrow_left</mat-icon></button>
+
+      <!-- <div  id="cardTempStart" style="z-index:100;"
+      [@move]="animateState==0 ? 'start' : animateState==1 ? 'left' : 'right'"
+      (@move.start)="startAnimationEvent($event)"
+      (@move.done)="endAnimationEvent($event)" > <img class="imageButton"  src="{{imagePath}}/{{myImage[endIndex].image}}" style="width:180px;z-index:100;" >
+     </div> -->
       <div  class="card"
             [@move]=" animateState==0 ? 'start' : animateState==1 ? 'left' : 'right' "
             (@move.start)="startAnimationEvent($event)"
@@ -15,11 +21,11 @@
             *ngFor="let number of group "  >
         <img class="imageButton" src="{{imagePath}}/{{myImage[number].image}}" style="width:180px;z-index:10;" (click)='selectImage(number)'>
       </div>
-      <div  id="cardTemp" style="z-index:100;"
-      [@move]="animateLeft ? 'start' : 'left'"
+      <!-- <div  id="cardTempEnd" style="z-index:100;"
+      [@move]="animateState==0 ? 'start' : animateState==1 ? 'left' : 'right'"
       (@move.start)="startAnimationEvent($event)"
       (@move.done)="endAnimationEvent($event)" >
         <img class="imageButton"  src="{{imagePath}}/{{myImage[endIndex].image}}" style="width:180px;z-index:100;" >
-      </div>
+      </div> -->
      <button class="col" style="height:290px;z-index:1500;visibility:{{rightButtonVisible}}" (click)="rightAnimation()"><mat-icon >arrow_right</mat-icon></button>
     </div>
