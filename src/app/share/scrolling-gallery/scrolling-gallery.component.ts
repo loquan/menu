@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit,Input, OnChanges, SimpleChanges,HostListener } from '@angular/core';
 import { transition, trigger,state,style, animate } from '@angular/animations';
 import { Images } from '../../models/image';
 
@@ -15,34 +15,56 @@ export class ScrollingGalleryComponent implements OnInit,OnChanges {
   @Input() myImage:Images[]=[];
 
   group:number[]=[];
-  groupSize=6;
-  endIndex:number=7;
+  groupSize:number=6;
+  endIndex:number=0;
   maxLength:number=0;
   isOpen:boolean=true;
   xSpacing:number=189;
   leftButtonVisible="visible";
   rightButtonVisible="hidden";
-  constructor() { }
+  screenWidth = window.innerWidth;
+  screenHeight = window.innerHeight;
 
-  ngOnInit(): void {
+
+  @HostListener('window:resize')
+  onResize() {
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
+    //this.groupSize=Math.round(this.screenWidth/300);
+    this.group=[];
     for(let x=0;x<this.groupSize;x++)
     {
        this.group[x]=x;
     }
-
-
     this.endIndex=this.groupSize;
     this.maxLength=this.myImage.length;
 
-    setTimeout(()=>{
+  }
+
+  constructor() { }
+
+
+  updateSize(){
+
+
       let  first = document.getElementsByClassName('card')[0] as HTMLElement;
       let  clipping = document.getElementsByClassName('flex-container')[0] as HTMLElement;
-
-
+      let clippingWidth=clipping.getBoundingClientRect().width;
       first.style.opacity="1";
-      let clippingWidth=this.groupSize*216;
 
+      if(clippingWidth>0)
       clipping.style.clip= 'rect(0px,'+clippingWidth+'px,400px,0px)';
+
+  }
+  ngOnInit(): void {
+
+    this.onResize();
+
+
+
+    setTimeout(()=>{
+      this.updateSize();
+
 
     },100);
   }
